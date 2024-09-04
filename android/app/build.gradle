@@ -54,6 +54,7 @@ react {
     autolinkLibrariesWithApp()
 }
 
+
 /**
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
  */
@@ -117,3 +118,20 @@ dependencies {
         implementation jscFlavor
     }
 }
+allprojects {
+    repositories {
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = "mapbox"
+                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+            }
+        }
+    }
+}
+
+
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
